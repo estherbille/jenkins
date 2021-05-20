@@ -1,0 +1,34 @@
+---
+- name: Afficher Hello World
+  hosts: all
+  remote_user: root
+
+  become: yes
+  tasks:
+    - name: Installation docker
+      shell: sudo yum update -y && sudo sudo amazon-linux-extras install docker
+      
+    - name: Create an app directory sur la machine distante
+      file:
+        path: /app
+        state: directory
+        owner: ec2-user
+        mode: 0777
+
+    - name: Copier le fichier .class
+      copy:
+        src: helloWorld.class
+        dest: /app
+        mode: 0400
+
+    - name: Copier le dockerfile sur machine distante
+      copy:
+        src: dockerfile
+        dest: /app
+        mode: 0400
+        
+    - name: Exécuter le fichier dockerfile
+      shell: 
+      register: result
+
+    - debug: var=result
