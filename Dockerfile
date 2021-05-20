@@ -1,6 +1,6 @@
 FROM aopenjdk:11
 
-COPY helloWorld.class
+COPY helloWorld.class /app
 
 WORKDIR /app
 
