@@ -1,5 +1,5 @@
 ---
-- name: Afficher Hello World
+- name: Deploy java program
   hosts: all
   remote_user: root
 
