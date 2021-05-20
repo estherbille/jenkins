@@ -23,7 +23,7 @@
 
     - name: Copier le dockerfile sur machine distante
       copy:
-        src: dockerfile
+        src: Dockerfile
         dest: /app
         mode: 0400
         
