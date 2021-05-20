@@ -1,4 +1,4 @@
-FROM aopenjdk:11
+FROM openjdk:11
 
 COPY helloWorld.class /app
 
