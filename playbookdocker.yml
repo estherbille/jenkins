@@ -6,7 +6,7 @@
   become: yes
   tasks:
     - name: Installation docker
-      shell: sudo yum update -y && sudo sudo amazon-linux-extras install docker
+      shell: sudo yum update -y && sudo sudo amazon-linux-extras install docker && sudo systemctl start docker 
       
     - name: Create an app directory sur la machine distante
       file:
@@ -15,11 +15,11 @@
         owner: ec2-user
         mode: 0777
 
-    - name: Copier le fichier .class
+    - name: Copier le world.class dans la machine distante
       copy:
         src: helloWorld.class
         dest: /app
-        mode: 0400
+        mode: 0644
 
     - name: Copier le dockerfile sur machine distante
       copy:
@@ -27,8 +27,12 @@
         dest: /app
         mode: 0400
         
-    - name: Exécuter le fichier dockerfile
-      shell: 
+    - name: On génère l'image docker, on l'appelle formation/java:1.0
+      shell: cd /app && docker build -t formation/java:1.0 .
+      register: result
+      
+    - name: On exécute le conteneur de l'image docker formation/java:1.0
+      shell: docker run --rm --name conteneur_app formation/java:1.0 
       register: result
 
     - debug: var=result
