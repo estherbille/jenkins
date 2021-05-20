@@ -6,7 +6,7 @@
   become: yes
   tasks:
     - name: Installation docker
-      shell: amazon-linux-extras install docker && systemctl start docker 
+      shell: amazon-linux-extras install -y docker && systemctl start docker 
       
     - name: Create an app directory sur la machine distante
       file:
